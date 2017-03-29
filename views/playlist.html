@@ -1,5 +1,7 @@
-<h2>Up next</h2>
 <div id="playlist" ng-controller="PlaylistCtrl" ng-show="playlist">
+    <h2>Up next</h2>
+    <div style="margin-bottom: 10px" ng-show="playlist.length > 0" ng-click="randomizePlaylist()" class="btn btn-sm btn-default"><i class="glyphicon glyphicon-refresh"></i>Randomize </div>
+
     <div ui-sortable="sortableOptions" ng-model="playlist">
         <div class="item" ng-repeat="item in playlist" playlist-row>
             <div class="pull-left col-xs-2">
@@ -12,7 +14,8 @@
 
             <div class="pull-left col-xs-10">
                 <div class="title">{{item.title}}</div>
-                <div class="delete" ng-click="deleteVideo(item)"><i class="glyphicon hidden glyphicon-trash"></i></div>
+                <div class="delete" ng-click="deleteVideo(item)"><i class="glyphicon hidden glyphicon-trash"></i>
+                </div>
                 <div class="duration">[{{ item.duration | secondsToTime | date:'HH:mm:ss' }}]</div>
             </div>
         </div>
@@ -20,4 +23,5 @@
     <div class="item" ng-show="playlist.length === 0">
         Nothing in playlist
     </div>
+</div>
 </div>

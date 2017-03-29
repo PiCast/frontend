@@ -14,6 +14,17 @@ angular.module('picastApp')
             'AngularJS',
             'Karma'
         ];
+
+        function shuffleArray(array) {
+            for (var i = array.length - 1; i > 0; i--) {
+                var j = Math.floor(Math.random() * (i + 1));
+                var temp = array[i];
+                array[i] = array[j];
+                array[j] = temp;
+            }
+            return array;
+        }
+
         PiCastService.getPlaylist();
         $interval(PiCastService.getPlaylist, 10000);
         $scope.sortableOptions = {
@@ -21,6 +32,11 @@ angular.module('picastApp')
             update: function () {
                 PiCastService.updatePlaylist($scope.playlist);
             }
+        };
+
+        $scope.randomizePlaylist = function () {
+            $scope.playlist = shuffleArray($scope.playlist);
+            PiCastService.updatePlaylist($scope.playlist);
         };
 
         $rootScope.$on('player_playlist_update', function (evt, status) {
@@ -34,7 +50,7 @@ angular.module('picastApp')
         $scope.deleteVideo = function (video) {
             var idx = $scope.playlist.indexOf(video);
             $scope.playlist.splice(idx, 1);
-             PiCastService.updatePlaylist($scope.playlist);
+            PiCastService.updatePlaylist($scope.playlist);
         }
 
     }]);
